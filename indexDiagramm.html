@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #canvas, #canvas-2 {
+      width: 400px;
+      height: 200px;
+      border: 3px solid black;
+      margin: 40px;
+
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <canvas id="canvas-2"></canvas>
+  <script>
+    const canvas = document.getElementById("canvas");
+    const canvas2 = document.getElementById("canvas-2");
+    const ctx = canvas.getContext("2d");
+    const ctx2 = canvas2.getContext("2d");
+
+    canvas.width = 400;
+    canvas.height = 200
+    canvas2.width = 400;
+    canvas2.height = 200
+
+    for (var x = 0.5; x < 400; x += 10) {
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x, 400);
+      ctx2.moveTo(x, 0);
+      ctx2.lineTo(x, 400);
+    }
+
+    for (var y = 0.5; y < 400; y += 10) {
+      ctx.moveTo(0, y);
+      ctx.lineTo(400, y);
+      ctx2.moveTo(0, y);
+      ctx2.lineTo(400, y);
+    }
+
+    ctx.strokeStyle = "#888";
+    ctx.stroke();
+    ctx2.strokeStyle = "#888";
+    ctx2.stroke();
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(20, 20, 50, 50);
+
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(30, 30, 30, 30);
+
+    ctx.beginPath()
+    ctx.strokeStyle = "green";
+    ctx.lineWidth = 5;
+    ctx.rect(100, 20, 50, 50);
+    ctx.stroke()
+    ctx.closePath()
+
+    ctx2.beginPath()
+    ctx2.strokeStyle = 'red';
+    ctx2.lineWidth = 10;
+    ctx2.moveTo(100, 50);
+    ctx2.lineTo(150, 100);
+    ctx2.stroke()
+    ctx2.closePath()
+
+    ctx2.beginPath()
+    // ctx2.strokeStyle = 'blue';
+    // ctx2.lineWidth = 30;
+    // ctx2.moveTo(250, 50);
+    // ctx2.lineTo(300, 50);
+    // ctx2.lineTo(300, 100);
+    // ctx2.lineCap = "round"
+    // ctx2.stroke()
+
+    ctx2.closePath()
+
+    ctx2.beginPath()
+    ctx2.moveTo(50,150)
+    ctx2.lineTo(150,50)
+    ctx2.lineTo(200,150)
+    ctx2.lineTo(50,150)
+    ctx2.lineWidth = 7;
+    ctx2.lineCap = "square"
+
+    ctx2.stroke();
+    ctx2.closePath()
+    
+  </script>
+</body>
+</html>

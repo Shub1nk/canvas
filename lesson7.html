@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    #canvas {
+      width: 600px;
+      height: 600px;
+      border: 3px solid black;
+      margin: 40px;
+
+    }
+  </style>
+</head>
+<body>
+  <label>R: <input type="number" id="R" value="180"></label>
+  <label>r: <input type="number" id="r" value="140"></label>
+  <label>d: <input type="number" id="d" value="50"></label>
+  <!-- <label>teta: <input type="text" id="teta"></label> -->
+  <button id="run">Run</button>
+  <canvas id="canvas"></canvas>
+  
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    const pi = Math.PI
+
+    canvas.width = 600;
+    canvas.height = 600;
+
+    const eR = document.getElementById("R");
+    const er = document.getElementById("r");
+    const ed = document.getElementById("d");
+    const run = document.getElementById("run");
+
+    
+
+    let R = eR.value;
+    let r = er.value;
+    let d = ed.value;
+    let teta = 0;
+
+    console.log(R, r, d, teta)
+
+    const spirograth = () => {
+      let x = (R - r)*Math.cos(teta) + d*Math.cos((R-r)*teta/r)
+      let y = (R - r)*Math.sin(teta) - d*Math.sin((R-r)*teta/r)
+      teta += 0.1;
+      ctx.fillRect(300+x, 300+y, 4, 4);
+      timer = setTimeout(spirograth, 1);
+    }
+
+    eR.oninput = (event) => {
+      R = event.target.value
+      };
+    er.oninput = (event) => {
+      r = event.target.value
+      };
+    ed.oninput = (event) => {
+      d = event.target.value
+      };
+
+    run.onclick = spirograth
+
+    // const eR = document.getElementById("R").oninput = spirograth(R, r, d);
+    // const er = document.getElementById("r").oninput = spirograth(R, r, d);
+    // const ed = document.getElementById("d").oninput = spirograth(R, r, d);
+    
+
+    // for (let x = 0.5; x < 600; x += 10) {
+    //   ctx.moveTo(x, 0);
+    //   ctx.lineTo(x, 600);
+    // }
+
+    // for (let y = 0.5; y < 600; y += 10) {
+    //   ctx.moveTo(0, y);
+    //   ctx.lineTo(600, y);
+    // }
+
+    // ctx.strokeStyle = "#888";
+    // ctx.stroke();
+
+    
+
+    
+
+    </script>
+</body>
+</html>

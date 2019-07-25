@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html {
+    }
+    #wrapper {
+      position: relative;
+    }
+    .flex {
+      display: flex;
+      height: 500px;
+    }
+    #panel {
+      width: 20%;
+      box-shadow: 0 0 0 3px inset red;
+    }
+    #panel #square, 
+    #panel #squareCopy {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      margin: 20px auto;
+      background: green;
+    }
+    
+    #panel #squareCopy {
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 3px dashed blue;
+      box-shadow: 0 5px 5px;
+    }
+
+
+    #picture {
+      width: 80%;
+      box-shadow: 0 0 0 3px inset blue;
+      background: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <a href="./lesson3.html">Рисование</a>
+    <a href="./lesson4.html">Отрисовка окружности</a>
+    <a href="./lesson5.html">Летающая точка и курсор</a>
+    <a href="./lesson6.html">Анимация синусоиды</a>
+    <a href="./lesson7.html">Спирограф</a>
+    <a href="./lesson8.html">Игра "Жизнь"</a>
+    <a href="./index.html">Частички</a>
+    <a href="./lesson2.html">Редактор</a>
+  </div>
+  <h2>Рисование</h2>
+  <div id="wrapper">
+    <div class="flex">
+      <div id="panel"></div>
+      <div id="picture">
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    const flex = document.querySelector(".flex");
+    const wrapper = document.getElementById("wrapper");
+    const panel = document.getElementById("panel");
+    const picture = document.getElementById("picture");
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+
+    let x, y;
+
+    // window.onmousemove = event => {
+    //   x = event.offsetX;
+    //   y = event.offsetY;
+    //   console.log(x,y)
+    // }
+
+    canvas.width = picture.clientWidth;
+    canvas.height = picture.clientHeight;
+
+    const square = document.createElement('div')
+    square.id = "square"
+    
+    panel.appendChild(square);
+
+    square.onmousedown = (event) => {
+      console.log('Нажали кнопку')
+      console.log("xxxx", event.offsetX, "yyyy", event.offsetY)      
+      const squareCopy = square.cloneNode(true);
+      squareCopy.style.top = `${event.offsetY}px`;
+      squareCopy.style.left = `${event.offsetX}px`;
+      squareCopy.id = 'squareCopy';      
+      panel.appendChild(squareCopy)
+
+      wrapper.onmousemove = (event) => {
+        console.log("x", event.offsetX, "y", event.offsetY)
+        squareCopy.style.top = `${event.offsetY}px`;
+        squareCopy.style.left = `${event.offsetX}px`;
+      }
+     
+      flex.onmouseup = () => {
+      console.log('Отпустили кнопку')
+      const squareCopy = document.getElementById('squareCopy');
+      squareCopy && squareCopy.remove();
+      }
+
+      canvas.onmouseup = event => {
+        console.log("--------------")
+        console.log("x", event.offsetX, "y", event.offsetY)
+        console.log("--------------")
+        ctx.fillRect(event.offsetX, event.offsetY, 100, 100);
+      }
+    }
+
+    
+    // square.onmouseup = () => {
+    //   console.log('Отпустили кнопку')
+    //   const squareCopy = document.getElementById('squareCopy');
+    //   squareCopy && squareCopy.remove();
+    // }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    window.onresize = () => {
+      canvas.width = picture.clientWidth;
+      canvas.height = picture.clientHeight;
+      console.log(canvas.width, canvas.height)
+    }
+
+    
+  </script>
+</body>
+</html>

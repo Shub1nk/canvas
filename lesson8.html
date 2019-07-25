@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      margin: 0 auto;
+      width: 1000px;
+    }
+    #canvas {
+      width: 700px;
+      height: 700px;
+      border: 3px solid black;
+    }
+    a, div {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <a href="./lesson3.html">Рисование</a>
+    <a href="./lesson4.html">Отрисовка окружности</a>
+    <a href="./lesson5.html">Летающая точка и курсор</a>
+    <a href="./lesson6.html">Анимация синусоиды</a>
+    <a href="./lesson7.html">Спирограф</a>
+    <a href="./lesson8.html">Игра "Жизнь"</a>
+    <a href="./index.html">Частички</a>
+    <a href="./lesson2.html">Редактор</a>
+  </div>
+  <h3>Игра "Жизнь"</h3>
+  <div>
+    <canvas id="canvas"></canvas>
+    <p>Количество циклов: <span id="count">0</span></p>
+    <button id="start">Start</button>
+  </div>
+  
+  <script>
+    const canvas = document.getElementById("canvas");
+    const ctx = canvas.getContext("2d");
+    let arr = [];
+    let n = 70, m = 70;
+    let count = 0;
+    let timer;
+
+    canvas.width = n*10;
+    canvas.height = m*10;
+
+    const drawField = () => {
+      ctx.clearRect(0,0,n*10,m*10);
+      for (let i = 0; i < m; i++) {
+        for (let j = 0; j < n; j++) {
+          if (arr[i][j]) {
+            ctx.fillRect(j*10, i*10, 10, 10)
+          }
+        }
+      }
+    };
+
+    const fpm = i => {
+      if(i===0) return m;
+      else return i;
+    }
+
+    const fpp = i => {
+      if(i===n-1) return -1;
+      else return i;
+    }
+
+    const startLife = () => {
+      let mas = [];
+      for (let i = 0; i < m; i++) {
+        mas[i] = [];
+        for (let j = 0; j < n; j++) {
+          let neighbors = 0;
+          if (arr[fpm(i)-1][j] === 1) neighbors++; // up
+          if (arr[i][fpp(j)+1] === 1) neighbors++; // rigth
+          if (arr[fpp(i)+1][j] === 1) neighbors++; // bottom
+          if (arr[i][fpm(j)-1] === 1) neighbors++; // left
+          if (arr[fpm(i)-1][fpp(j)+1] === 1) neighbors++;
+          if (arr[fpp(i)+1][fpp(j)+1] === 1) neighbors++;
+          if (arr[fpm(i)-1][fpm(j)+1] === 1) neighbors++;
+          if (arr[fpm(i)-1][fpm(j)-1] === 1) neighbors++;
+          (neighbors==2 || neighbors==3) ? mas[i][j] = 1 : mas[i][j] = 0;
+        }
+      }
+      arr = mas;
+      drawField();
+      count++;
+      document.getElementById('count').innerHTML = count;
+      timer = setTimeout(startLife, 100);
+    };
+
+    canvas.onclick = event => {
+      let x = event.offsetX;
+      let y = event.offsetY;
+      x = Math.floor(x/10);
+      y = Math.floor(y/10);
+      arr[y][x]=1;
+      drawField();
+    };
+    
+    const goLife = () => {      
+      for (let i = 0; i < m; i++) {
+        arr[i] = [];
+        for (let j = 0; j < n; j++) {
+          arr[i][j] = 0;
+        }
+      }
+    }
+    
+    goLife();
+
+    document.getElementById('start').onclick = startLife;
+
+    
+
+    </script>
+</body>
+</html>

@@ -6,23 +6,42 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <style>
+    body {
+      margin: 0 auto;
+      width: 1000px;
+    }
     #canvas {
-      width: 600px;
-      height: 600px;
+      width: 700px;
+      height: 700px;
       border: 3px solid black;
-      margin: 40px;
-
+    }
+    a, div {
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
-  <label>R: <input type="number" id="R" value="180"></label>
-  <label>r: <input type="number" id="r" value="140"></label>
-  <label>d: <input type="number" id="d" value="50"></label>
-  <!-- <label>teta: <input type="text" id="teta"></label> -->
-  <button id="run">Run</button>
-  <canvas id="canvas"></canvas>
-  
+    <div>
+      <a href="./lesson3.html">Рисование</a>
+      <a href="./lesson4.html">Отрисовка окружности</a>
+      <a href="./lesson5.html">Летающая точка и курсор</a>
+      <a href="./lesson6.html">Анимация синусоиды</a>
+      <a href="./lesson7.html">Спирограф</a>
+      <a href="./lesson8.html">Игра "Жизнь"</a>
+      <a href="./index.html">Частички</a>
+      <a href="./lesson2.html">Редактор</a>
+    </div>
+    <h2>Спирограф</h2>
+    <div>
+      <p>
+        <label>R: <input type="number" id="R" value="180"></label>
+        <label>r: <input type="number" id="r" value="100"></label>
+        <label>d: <input type="number" id="d" value="50"></label>
+        <button id="run">Run</button>
+      </p>
+      <canvas id="canvas"></canvas>
+    </div>
+
   <script>
     const canvas = document.getElementById("canvas");
     const ctx = canvas.getContext("2d");
